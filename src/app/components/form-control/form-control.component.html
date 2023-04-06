@@ -1,0 +1,14 @@
+<div>
+  <label class="block mb-2 text-sm font-medium text-gray-900">
+    <span>
+      {{ label }}
+    </span>
+  </label>
+
+  <div class="relative mb-3">
+    <ng-content></ng-content>
+  </div>
+  <p *ngIf="invalid" class="ml-2 text-sm font-light text-red-600">
+    <span class="font-medium">Oops!</span> {{ error }}
+  </p>
+</div>

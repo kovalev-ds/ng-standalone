@@ -1,0 +1,10 @@
+<select
+  #select
+  (change)="onChange(select.value)"
+  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 appearance-none"
+>
+  <option selected disabled>Select ...</option>
+  <option *ngFor="let option of options" [value]="option.value">
+    {{ option.name }}
+  </option>
+</select>

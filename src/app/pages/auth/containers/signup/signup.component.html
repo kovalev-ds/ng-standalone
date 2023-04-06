@@ -1,0 +1,63 @@
+<app-card>
+  <app-card-header>
+    <app-card-header-title>Sign Up</app-card-header-title>
+    <app-card-header-subtitle>
+      Already with us?
+      <a [routerLink]="['/', 'auth', 'signin']" class="text-sky-500">Sign In</a>
+    </app-card-header-subtitle>
+  </app-card-header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <app-card-content>
+      <app-form-control
+        label="User Name"
+        error="You should provide Your name"
+        [invalid]="isFieldInvalid('username')"
+      >
+        <app-input
+          [formControl]="form.controls.username"
+          type="text"
+          placeholder="Provide your full name"
+        />
+      </app-form-control>
+      <app-form-control
+        label="Email"
+        error="Provide correct email address"
+        [invalid]="isFieldInvalid('email')"
+      >
+        <app-input
+          [formControl]="form.controls.email"
+          type="email"
+          placeholder="Enter your email"
+        />
+      </app-form-control>
+      <app-form-control
+        label="Password"
+        error="Provide your account password"
+        [invalid]="isFieldInvalid('password')"
+      >
+        <app-input
+          [formControl]="form.controls.password"
+          type="password"
+          placeholder="Provide your password"
+        />
+      </app-form-control>
+      <app-form-control
+        label="Select User Role"
+        error="Select one of the roles"
+        [invalid]="isFieldInvalid('role')"
+      >
+        <app-select
+          [formControl]="form.controls.role"
+          [options]="roleOptions"
+        ></app-select>
+      </app-form-control>
+      <app-form-control label="Photo">
+        <app-file-input [formControl]="form.controls.avatar" />
+      </app-form-control>
+    </app-card-content>
+    <app-card-actions>
+      <app-button type="submit" [disabled]="form.invalid">Sign In</app-button>
+    </app-card-actions>
+  </form>
+</app-card>

@@ -1,0 +1,39 @@
+<app-card>
+  <app-card-header>
+    <app-card-header-title>Sign In</app-card-header-title>
+    <app-card-header-subtitle>
+      Or if you have an accout
+      <a [routerLink]="['/', 'auth', 'signup']" class="text-sky-500">Sign Up</a>
+    </app-card-header-subtitle>
+  </app-card-header>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <app-card-content>
+      <app-form-control
+        label="Email"
+        error="Provide correct email address"
+        [invalid]="isFieldInvalid('email')"
+      >
+        <app-input
+          [formControl]="form.controls.email"
+          type="email"
+          placeholder="Enter your email"
+        />
+      </app-form-control>
+      <app-form-control
+        label="Password"
+        error="Provide password"
+        [invalid]="isFieldInvalid('password')"
+      >
+        <app-input
+          [formControl]="form.controls.password"
+          type="password"
+          placeholder="Provide your password"
+        />
+      </app-form-control>
+    </app-card-content>
+    <app-card-actions>
+      <app-button type="submit" [disabled]="form.invalid">Sign In</app-button>
+    </app-card-actions>
+  </form>
+</app-card>

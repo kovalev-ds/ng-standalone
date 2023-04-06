@@ -1,0 +1,14 @@
+<div class="relative flex items-center">
+  <input
+    (change)="onChange($event)"
+    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 pr-20 focus:outline-none file:border-none file:px-8 file:p-2.5 file:mr-4 file:font-semibold file:cursor-pointer"
+    type="file"
+  />
+
+  <img
+    *ngIf="image"
+    [src]="image | appFileAsImage"
+    alt="avatar"
+    class="h-8 w-8 rounded-full object-cover absolute right-6"
+  />
+</div>
