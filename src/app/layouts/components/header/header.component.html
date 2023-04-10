@@ -1,0 +1,46 @@
+<header *ngIf="user" class="shadow border-b bg-white">
+  <div class="flex items-center justify-between py-2 px-4 xl:px-8">
+    <a
+      [routerLink]="[appRoute.Home]"
+      class="text-lg font-semibold tracking-wide text-gray-900"
+    >
+      <span class="text-xl">D</span>ashboard
+    </a>
+    <div class="flex items-center gap-x-4">
+      <ng-container *ngIf="portalComponent$ | async as component">
+        <ng-template [cdkPortalOutlet]="component"></ng-template>
+      </ng-container>
+      <div class="border-l pl-4">
+        <button [mat-menu-trigger-for]="menu" class="flex items-center gap-x-4">
+          <img
+            [src]="user.avatar"
+            [alt]="user.username"
+            class="h-8 w-8 rounded-full object-cover"
+          />
+          <span class="font-semibold">{{ user.username }}</span>
+          <app-icon>expand_more</app-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <mat-menu #menu class="px-4 py-4">
+    <div class="px-4 py-2">
+      <div class="flex flex-col gap-y-1 mb-4 pb-4 border-b">
+        <img
+          [src]="user.avatar"
+          [alt]="user.username"
+          class="rounded aspect-square object-cover mb-2"
+        />
+        <div class="flex items-center gap-x-2 text-sm">
+          <span class="text-gray-500">Email:</span>
+          <span class="font-semibold text-gray-700">{{ user.email }}</span>
+        </div>
+        <div class="flex items-center gap-x-2 text-sm">
+          <span class="text-gray-500">Roles:</span>
+          {{ user.roles }}
+        </div>
+      </div>
+      <app-button (click)="onSignOut()">Sign Out</app-button>
+    </div>
+  </mat-menu>
+</header>

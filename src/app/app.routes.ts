@@ -1,5 +1,4 @@
-import { Router, Routes } from '@angular/router';
-import { inject } from '@angular/core';
+import { Routes } from '@angular/router';
 
 import { AppRouteEnum } from './core/enums/app-route.enum';
 import { MainLayoutComponent } from './layouts';

@@ -5,7 +5,7 @@ import { AppButtonComponent } from '@components/button';
 import { AuthService } from '@features/auth';
 import { MatMenuModule } from '@angular/material/menu';
 import { AppIconComponent } from '@components/icon';
-import { AppRouteEnum } from '@core/enums/app-route.enum';
+import { HeaderComponent } from '../components';
 
 @Component({
   standalone: true,
@@ -14,20 +14,22 @@ import { AppRouteEnum } from '@core/enums/app-route.enum';
     RouterLink,
     AsyncPipe,
     NgIf,
-    AppButtonComponent,
     MatMenuModule,
+
+    AppButtonComponent,
     AppIconComponent,
+
+    HeaderComponent,
   ],
   templateUrl: './main.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayoutComponent {
-  public authService = inject(AuthService);
-  public appRoute: typeof AppRouteEnum = AppRouteEnum;
+  private readonly authService = inject(AuthService);
 
   public user$ = this.authService.user$;
 
-  public signout() {
+  public signout(): void {
     this.authService.signout();
   }
 }

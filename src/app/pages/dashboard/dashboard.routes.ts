@@ -5,5 +5,8 @@ export const DashboardRoutes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    children: [
+      { path: '', loadComponent: () => import('./containers/warehouse-list') },
+    ],
   },
 ];

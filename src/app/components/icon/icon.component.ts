@@ -16,6 +16,6 @@ import { MatIconModule } from '@angular/material/icon';
 export class AppIconComponent {
   @HostBinding('class')
   get classes() {
-    return 'h-6 w-6';
+    return 'h-6 w-6 text-gray-700';
   }
 }
