@@ -1,34 +1,36 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { RouterLink } from '@angular/router';
 import { AppIconComponent } from '@components/icon';
 import { AppIconButtonComponent } from '@components/icon-button';
-import { AppInputComponent } from '@components/input';
-import { CreateDialogComponent, WarehouseService } from '@features/warehouse';
-import { takeWhile } from 'rxjs';
+import { WarehouseService } from '@features/warehouse';
+import { RemoveDialogComponent } from '@features/warehouse/components/remove-dialog/remove-dialog.component';
+import { map, takeWhile } from 'rxjs';
 
 @Component({
-  standalone: true,
-  selector: 'app-portal-content',
-  imports: [AppIconComponent, AppIconButtonComponent, AppInputComponent],
   templateUrl: './header-portal-content.component.html',
+  imports: [RouterLink, AppIconComponent, AppIconButtonComponent],
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderPortalContentComponent {
   private readonly dialog = inject(MatDialog);
   private readonly warehouseService = inject(WarehouseService);
 
-  public add(): void {
-    const matDialogRef = this.dialog.open(CreateDialogComponent, {
+  public add(): void {}
+
+  public remove(): void {
+    const matDialogRef = this.dialog.open(RemoveDialogComponent, {
       position: { top: '200px' },
       minWidth: '456px',
+      data: this.warehouseService.warehouse$.pipe(map((item) => item?.name)),
     });
 
     matDialogRef
       .afterClosed()
       .pipe(takeWhile((x) => x))
-      .subscribe((data) => {
-        console.log('create dialog closed with', data);
-        this.warehouseService.create(data);
+      .subscribe(() => {
+        this.warehouseService.removeWarehouse();
       });
   }
 }

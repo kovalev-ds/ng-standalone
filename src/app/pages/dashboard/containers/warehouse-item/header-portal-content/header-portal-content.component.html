@@ -1,0 +1,15 @@
+<div class="flex items-center">
+  <div class="border-r pr-4">
+    <app-icon-button [routerLink]="['/']">
+      <app-icon>arrow_back</app-icon>
+    </app-icon-button>
+  </div>
+  <div class="flex items-center gap-x-1 px-2">
+    <app-icon-button (click)="add()">
+      <app-icon>add</app-icon>
+    </app-icon-button>
+    <app-icon-button (click)="remove()">
+      <app-icon>delete</app-icon>
+    </app-icon-button>
+  </div>
+</div>

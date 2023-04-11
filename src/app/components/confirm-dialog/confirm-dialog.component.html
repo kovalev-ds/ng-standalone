@@ -1,0 +1,9 @@
+<div class="p-2 rounded flex flex-col items-center">
+  <div class="py-2 text-lg">
+    <ng-content></ng-content>
+  </div>
+  <div class="flex items-center justify-center gap-x-2 py-2">
+    <app-button variant="red" (click)="confirm()">confirm</app-button>
+    <app-button (click)="reject()">cancel</app-button>
+  </div>
+</div>

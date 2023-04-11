@@ -7,16 +7,24 @@ import { WarehouseInterface } from '../interfaces/warehouse.interface';
 const API_URL = environment.api_url + 'warehouses';
 
 @Injectable({ providedIn: 'root' })
-export class WarehousesService {
+export class WarehouseApiService {
   private readonly http = inject(HttpClient);
 
   public find(): Observable<WarehouseInterface[]> {
     return this.http.get<WarehouseInterface[]>(API_URL);
   }
 
+  public findById(id: number): Observable<WarehouseInterface> {
+    return this.http.get<WarehouseInterface>(API_URL + `/${id}`);
+  }
+
   public createOne(
     data: Omit<WarehouseInterface, 'id'>
   ): Observable<WarehouseInterface> {
     return this.http.post<WarehouseInterface>(API_URL, data);
+  }
+
+  public removeOne(id: number) {
+    return this.http.delete(API_URL + `/${id}`);
   }
 }

@@ -1,0 +1,5 @@
+<app-confirm (confirmed)="confirm()" (rejected)="reject()">
+  Are you sure you want to remove
+  <span class="font-medium underline">{{ name | async }}</span
+  >?
+</app-confirm>

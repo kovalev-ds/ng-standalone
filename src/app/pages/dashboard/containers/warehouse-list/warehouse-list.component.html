@@ -1,1 +1,17 @@
-<div>warehouse list component</div>
+<ng-container *ngIf="items$ | async as items">
+  <ng-container *ngIf="items.length; else emptyListTemplate">
+    <div class="grid grid-cols-4 gap-4">
+      <div
+        [routerLink]="[item.id]"
+        *ngFor="let item of items; trackBy: trackById"
+        class="flex flex-col items-center bg-white shadow cursor-pointer"
+      >
+        <h3>{{ item.name }}</h3>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #emptyListTemplate>
+  <div>Your Warehouse List is empty. Add new Warehouse.</div>
+</ng-template>

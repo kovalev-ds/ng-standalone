@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthService } from '@features/auth';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +8,4 @@ import { AuthService } from '@features/auth';
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  private readonly authService = inject(AuthService);
-
-  ngOnInit() {
-    // this.authService.checkAuthentication();
-  }
-}
+export class AppComponent {}

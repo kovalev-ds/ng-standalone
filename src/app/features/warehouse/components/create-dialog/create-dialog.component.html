@@ -1,20 +1,12 @@
-<app-card>
-  <app-card-header>
-    <app-card-header-title>Sign In</app-card-header-title>
-  </app-card-header>
-
-  <form>
-    <app-card-content>
-      <!-- <app-form-control
-        label="Email"
-        error="Provide correct email address"
-        [invalid]="isFieldInvalid('email')"
-      > -->
-      <app-input type="email" placeholder="Enter your email" />
-      <!-- </app-form-control> -->
-    </app-card-content>
-    <app-card-actions>
-      <!-- <app-button type="submit" [disabled]="form.invalid">Create</app-button> -->
-    </app-card-actions>
-  </form>
-</app-card>
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="flex flex-col gap-y-2 p-2"
+>
+  <app-input
+    type="text"
+    placeholder="Type Warehouse Name"
+    [formControl]="form.controls.name"
+  />
+  <app-button type="submit">Create Warehouse</app-button>
+</form>

@@ -1,12 +1,12 @@
 <header *ngIf="user" class="shadow border-b bg-white">
   <div class="flex items-center justify-between py-2 px-4 xl:px-8">
     <a
-      [routerLink]="[appRoute.Home]"
+      [routerLink]="['/']"
       class="text-lg font-semibold tracking-wide text-gray-900"
     >
       <span class="text-xl">D</span>ashboard
     </a>
-    <div class="flex items-center gap-x-4">
+    <div class="flex items-center">
       <ng-container *ngIf="portalComponent$ | async as component">
         <ng-template [cdkPortalOutlet]="component"></ng-template>
       </ng-container>

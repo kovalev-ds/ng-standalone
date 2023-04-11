@@ -6,7 +6,14 @@ export const DashboardRoutes: Routes = [
     path: '',
     component: DashboardComponent,
     children: [
-      { path: '', loadComponent: () => import('./containers/warehouse-list') },
+      {
+        path: '',
+        loadComponent: () => import('./containers/warehouse-list'),
+      },
+      {
+        path: ':id',
+        loadComponent: () => import('./containers/warehouse-item'),
+      },
     ],
   },
 ];

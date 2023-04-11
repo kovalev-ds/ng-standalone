@@ -20,12 +20,15 @@ import { AuthEffects, AuthFeature } from '@store/auth';
 
 import { AppComponent } from './app/app.component';
 import { AppRoutes } from './app/app.routes';
+import { WarehouseFeature } from '@store/warehouse';
+import { WarehouseEffects } from '@store/warehouse/warehouse.effects';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideStore({}),
     provideState(AuthFeature),
-    provideEffects([AuthEffects]),
+    provideState(WarehouseFeature),
+    provideEffects([AuthEffects, WarehouseEffects]),
     provideStoreDevtools(),
     provideHttpClient(
       withInterceptors([

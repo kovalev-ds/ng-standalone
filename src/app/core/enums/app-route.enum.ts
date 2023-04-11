@@ -1,4 +1,4 @@
 export enum AppRouteEnum {
-  Home = '',
+  Home = 'dashboard',
   Auth = 'auth',
 }

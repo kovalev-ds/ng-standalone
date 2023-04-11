@@ -9,6 +9,7 @@ export const AppRoutes: Routes = [
   {
     path: '',
     children: [
+      { path: '', pathMatch: 'full', redirectTo: AppRouteEnum.Home },
       {
         path: AppRouteEnum.Home,
         component: MainLayoutComponent,
