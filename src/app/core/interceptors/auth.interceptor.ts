@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { EMPTY, catchError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 
-export const AuthInterceptor =
+export const authenticationInterceptor =
   (fn: () => void): HttpInterceptorFn =>
   (req, next) => {
     req = req.clone({ withCredentials: true });
@@ -11,7 +11,7 @@ export const AuthInterceptor =
         if (error.status === 401) {
           fn();
         }
-        return EMPTY;
+        return throwError(() => error);
       })
     );
   };

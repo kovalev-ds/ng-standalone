@@ -5,10 +5,10 @@ const authFeatureSelector = createFeatureSelector<AuthState>(AUTH_FEATURE_KEY);
 
 export const isAuthenticated = createSelector(
   authFeatureSelector,
-  (state) => state.user !== null
+  (state) => state.isLoggedIn
 );
 
-export const getUser = createSelector(
+export const getCurrentUser = createSelector(
   authFeatureSelector,
   (state) => state.user
 );

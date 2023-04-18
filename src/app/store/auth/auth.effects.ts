@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Actions, OnInitEffects, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, catchError, exhaustMap, map, tap } from 'rxjs';
-import { Action } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { Action } from '@ngrx/store';
+import { Actions, OnInitEffects, createEffect, ofType } from '@ngrx/effects';
+import {
+  EMPTY,
+  catchError,
+  exhaustMap,
+  map,
+  of,
+  repeat,
+  switchMap,
+  tap,
+} from 'rxjs';
 
 import { AuthApi } from '@features/auth';
+import { AppRouteEnum } from '@core/enums';
 import {
+  authenticate,
   checkAuthBegin,
-  checkAuthSuccess,
+  checkAuthFailure,
   signinBegin,
-  signinSuccess,
+  signupBegin,
   signoutBegin,
   signoutSuccess,
-  signupBegin,
-  signupSuccess,
 } from './auth.actions';
-import { AppRouteEnum } from '@core/enums/app-route.enum';
 
 @Injectable()
 export class AuthEffects implements OnInitEffects {
@@ -32,10 +40,10 @@ export class AuthEffects implements OnInitEffects {
   checkAuthBegin$ = createEffect(() =>
     this.actions$.pipe(
       ofType(checkAuthBegin),
-      exhaustMap(() => {
+      switchMap(() => {
         return this.api.me().pipe(
-          map((response) => checkAuthSuccess({ payload: response })),
-          catchError(() => EMPTY)
+          map((response) => authenticate({ payload: response })),
+          catchError(() => of(checkAuthFailure()))
         );
       })
     )
@@ -46,7 +54,7 @@ export class AuthEffects implements OnInitEffects {
       ofType(signinBegin),
       exhaustMap(({ payload }) => {
         return this.api.signin(payload).pipe(
-          map((response) => signinSuccess({ payload: response })),
+          map((response) => authenticate({ payload: response })),
           catchError(() => EMPTY)
         );
       })
@@ -58,7 +66,7 @@ export class AuthEffects implements OnInitEffects {
       ofType(signupBegin),
       exhaustMap(({ payload }) => {
         return this.api.signup(payload).pipe(
-          map((response) => signupSuccess({ payload: response })),
+          map((response) => authenticate({ payload: response })),
           catchError(() => EMPTY)
         );
       })
@@ -80,9 +88,10 @@ export class AuthEffects implements OnInitEffects {
   afterAuthSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(signinSuccess, signupSuccess, checkAuthSuccess),
+        ofType(authenticate),
         tap(() => {
-          this.router.navigate([AppRouteEnum.Home]);
+          this.router.routerState.snapshot.url.includes(AppRouteEnum.Auth) &&
+            this.router.navigate([AppRouteEnum.Home]);
         })
       ),
     {

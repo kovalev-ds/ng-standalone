@@ -1,0 +1,18 @@
+<ng-container *ngIf="cellService.selected$ | async as cell">
+  <div class="px-4 h-16 flex justify-between items-center border-b shadow">
+    <div class="flex flex-col">
+      <span class="text-gray-400 text-xs">Cell name:</span>
+      <div class="text-gray-800 capitalize font-medium">{{ cell.name }}</div>
+    </div>
+    <div class="flex items-center gap-x-1 px-2">
+      <app-icon-button (click)="add()">
+        <app-icon>add</app-icon>
+      </app-icon-button>
+    </div>
+  </div>
+  <ng-container *ngIf="itemService.items$ | async as items">
+    <div class="p-4 grid grid-cols-4 gap-4">
+      <item-card *ngFor="let item of items" [item]="item" />
+    </div>
+  </ng-container>
+</ng-container>

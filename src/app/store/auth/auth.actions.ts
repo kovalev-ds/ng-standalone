@@ -7,30 +7,20 @@ import {
   SignUpInterface,
 } from '@features/auth';
 
+export const checkAuthBegin = createAction(ActionTypes.CheckAuthBegin);
+export const checkAuthFailure = createAction(ActionTypes.CheckAuthFailure);
+
 export const signinBegin = createAction(
   ActionTypes.SignInBegin,
   props<{ payload: SignInInterface }>()
 );
-
-export const signinSuccess = createAction(
-  ActionTypes.SignInSuccess,
-  props<{ payload: AuthResponseInterface }>()
-);
-
 export const signupBegin = createAction(
   ActionTypes.SignUpBegin,
   props<{ payload: SignUpInterface }>()
 );
 
-export const signupSuccess = createAction(
-  ActionTypes.SignUpSuccess,
-  props<{ payload: AuthResponseInterface }>()
-);
-
-export const checkAuthBegin = createAction(ActionTypes.CheckAuthBegin);
-
-export const checkAuthSuccess = createAction(
-  ActionTypes.CheckAuthSuccess,
+export const authenticate = createAction(
+  ActionTypes.Authenticate,
   props<{ payload: AuthResponseInterface }>()
 );
 

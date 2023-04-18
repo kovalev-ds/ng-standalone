@@ -1,0 +1,38 @@
+<app-card>
+  <app-card-header>
+    <app-card-header-title>Create Item</app-card-header-title>
+  </app-card-header>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <app-card-content>
+      <app-form-control label="Title">
+        <app-input
+          type="text"
+          placeholder="Item Name"
+          [formControl]="form.controls.name"
+        />
+      </app-form-control>
+
+      <app-form-control label="Description">
+        <app-textarea
+          placeholder="Item Description"
+          [formControl]="form.controls.description"
+        />
+      </app-form-control>
+
+      <app-form-control label="Qantity">
+        <app-input
+          type="number"
+          placeholder="Qantity"
+          [formControl]="form.controls.total"
+        />
+      </app-form-control>
+
+      <app-form-control label="Photo">
+        <app-file-input [formControl]="form.controls.image" />
+      </app-form-control>
+    </app-card-content>
+    <app-card-actions>
+      <app-button type="submit">Add Item</app-button>
+    </app-card-actions>
+  </form>
+</app-card>

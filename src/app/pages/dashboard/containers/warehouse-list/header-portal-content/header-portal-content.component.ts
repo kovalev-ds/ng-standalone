@@ -27,7 +27,6 @@ export class HeaderPortalContentComponent {
       .afterClosed()
       .pipe(takeWhile((x) => x))
       .subscribe((data) => {
-        console.log('create dialog closed with', data);
         this.warehouseService.create(data);
       });
   }

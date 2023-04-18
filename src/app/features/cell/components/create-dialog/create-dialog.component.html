@@ -1,0 +1,12 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+  class="flex flex-col gap-y-2 p-2"
+>
+  <app-input
+    type="text"
+    placeholder="Type Cell Name"
+    [formControl]="form.controls.name"
+  />
+  <app-button type="submit">Add Cell</app-button>
+</form>

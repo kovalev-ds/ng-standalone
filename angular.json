@@ -127,6 +127,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "warehouse-ng-app:build:production",
+            "firebaseProject": "warehouse-fire",
+            "firebaseHostingSite": "warehouse-fire"
+          }
         }
       }
     }

@@ -15,27 +15,22 @@ import { Observable } from 'rxjs';
 export class WarehouseService {
   private readonly store = inject(Store);
 
+  public items$ = this.store.select(getWarehouseList);
+  public item$ = this.store.select(getWarehouse);
+
   public create(data: Omit<WarehouseInterface, 'id'>): void {
     this.store.dispatch(createOneBegin({ data }));
   }
 
-  public loadWarehouseList(): void {
+  public loadList(): void {
     this.store.dispatch(loadListBegin());
   }
 
-  public loadWarehouse(id: number): void {
+  public loadOne(id: number): void {
     this.store.dispatch(loadOneBegin({ id }));
   }
 
-  public getWarehouseList(): Observable<WarehouseInterface[]> {
-    return this.store.select(getWarehouseList);
-  }
-
-  public get warehouse$(): Observable<WarehouseInterface | null> {
-    return this.store.select(getWarehouse);
-  }
-
-  public removeWarehouse(): void {
+  public remove(): void {
     this.store.dispatch(removeOneBegin());
   }
 }

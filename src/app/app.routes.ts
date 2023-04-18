@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 
-import { AppRouteEnum } from './core/enums/app-route.enum';
-import { MainLayoutComponent } from './layouts';
-
 import { shouldBeAuthenticated } from '@features/auth';
+
+import { AppRouteEnum } from './core/enums';
+import { MainLayoutComponent } from './layouts';
 
 export const AppRoutes: Routes = [
   {
@@ -13,7 +13,7 @@ export const AppRoutes: Routes = [
       {
         path: AppRouteEnum.Home,
         component: MainLayoutComponent,
-        canActivate: [
+        canMatch: [
           shouldBeAuthenticated((router) =>
             router.navigate([AppRouteEnum.Auth])
           ),

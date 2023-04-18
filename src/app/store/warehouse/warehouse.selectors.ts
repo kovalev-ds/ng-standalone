@@ -7,7 +7,7 @@ const authFeatureSelector = createFeatureSelector<WarehouseState>(
 
 export const getWarehouseList = createSelector(
   authFeatureSelector,
-  (state) => state.warehouses
+  (state) => state.items
 );
 
 export const getWarehouse = createSelector(

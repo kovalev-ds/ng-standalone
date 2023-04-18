@@ -1,8 +1,11 @@
 <div class="flex items-center">
-  <div class="border-r pr-4">
+  <div class="flex items-center border-r pr-4">
     <app-icon-button [routerLink]="['/']">
       <app-icon>arrow_back</app-icon>
     </app-icon-button>
+    <ng-container *ngIf="warehouseService.item$ | async as item">
+      <div class="px-4 font-semibold">{{ item.name }}</div>
+    </ng-container>
   </div>
   <div class="flex items-center gap-x-1 px-2">
     <app-icon-button (click)="add()">

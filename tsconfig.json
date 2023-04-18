@@ -28,6 +28,7 @@
       "@store/*": ["./src/app/store/*"],
       "@components/*": ["./src/app/components/*"]
     }
+    // "skipLibCheck": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

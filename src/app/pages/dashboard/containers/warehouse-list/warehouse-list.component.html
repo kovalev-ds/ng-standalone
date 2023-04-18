@@ -1,17 +1,26 @@
-<ng-container *ngIf="items$ | async as items">
+<ng-container *ngIf="warehouseService.items$ | async as items">
   <ng-container *ngIf="items.length; else emptyListTemplate">
     <div class="grid grid-cols-4 gap-4">
       <div
         [routerLink]="[item.id]"
         *ngFor="let item of items; trackBy: trackById"
-        class="flex flex-col items-center bg-white shadow cursor-pointer"
+        class="bg-white shadow cursor-pointer transition-shadow hover:shadow-lg"
       >
-        <h3>{{ item.name }}</h3>
+        <div class="p-4">
+          <div>
+            <span class="text-gray-500 text-sm">title: </span>
+            <span class="text-gray-800 font-semibold capitalize">{{
+              item.name
+            }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </ng-container>
 </ng-container>
 
 <ng-template #emptyListTemplate>
-  <div>Your Warehouse List is empty. Add new Warehouse.</div>
+  <div class="p-2 text-center text-gray-700 font-medium">
+    Your Warehouse List is empty. Add new Warehouse.
+  </div>
 </ng-template>

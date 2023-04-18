@@ -4,17 +4,13 @@ import { loadOneSuccess, loadListSuccess } from './warehouse.actions';
 
 export const WAREHOUSE_FEATURE_KEY = 'WAREHOUSE';
 
-export interface WarehouseSlice {
-  [WAREHOUSE_FEATURE_KEY]: WarehouseState;
-}
-
 export interface WarehouseState {
-  warehouses: WarehouseInterface[];
+  items: WarehouseInterface[];
   selected: WarehouseInterface | null;
 }
 
 export const initialState: WarehouseState = {
-  warehouses: [],
+  items: [],
   selected: null,
 };
 
@@ -24,7 +20,7 @@ export const WarehouseFeature = createFeature({
     initialState,
     on(loadListSuccess, (state, { data }) => ({
       ...state,
-      warehouses: data,
+      items: data,
     })),
     on(loadOneSuccess, (state, { data }) => ({ ...state, selected: data }))
   ),

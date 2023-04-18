@@ -13,6 +13,12 @@ export const DashboardRoutes: Routes = [
       {
         path: ':id',
         loadComponent: () => import('./containers/warehouse-item'),
+        children: [
+          {
+            path: 'cells/:id',
+            loadComponent: () => import('./containers/cell-item'),
+          },
+        ],
       },
     ],
   },

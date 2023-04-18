@@ -4,6 +4,7 @@ import { HeaderPortalContentComponent } from './header-portal-content';
 import { WarehouseService } from '@features/warehouse';
 import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { LoaderService } from '@core/services';
 
 @Component({
   standalone: true,
@@ -13,13 +14,12 @@ import { RouterLink } from '@angular/router';
 })
 export class WarehouseListComponent {
   private readonly headerPortal = inject(HeaderPortalService);
-  private readonly warehouseService = inject(WarehouseService);
-
-  public items$ = this.warehouseService.getWarehouseList();
+  protected readonly warehouseService = inject(WarehouseService);
+  protected readonly loaderService = inject(LoaderService);
 
   ngOnInit(): void {
     this.headerPortal.setComponent(HeaderPortalContentComponent);
-    this.warehouseService.loadWarehouseList();
+    this.warehouseService.loadList();
   }
 
   ngOnDestroy(): void {

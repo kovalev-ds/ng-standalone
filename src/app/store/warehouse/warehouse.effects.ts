@@ -10,6 +10,9 @@ import {
   removeOneBegin,
   removeOneSuccess,
 } from './warehouse.actions';
+
+import { loadListBegin as loadCellListBegin } from '../cell';
+
 import {
   EMPTY,
   catchError,
@@ -57,6 +60,13 @@ export class WarehouseEffects {
     )
   );
 
+  afterLoadOneSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadOneSuccess),
+      map(() => loadCellListBegin())
+    )
+  );
+
   createOneBegin$ = createEffect(() =>
     this.actions$.pipe(
       ofType(createOneBegin),
@@ -73,9 +83,7 @@ export class WarehouseEffects {
     this.actions$.pipe(
       ofType(removeOneBegin),
       withLatestFrom(this.store.select(getWarehouse)),
-      map(([_, x]) => x),
-      filter((x) => x !== null),
-      mergeMap((data) => {
+      mergeMap(([_, data]) => {
         return data
           ? this.api.removeOne(data.id).pipe(
               map(() => removeOneSuccess()),
