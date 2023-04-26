@@ -8,15 +8,20 @@ export const DashboardRoutes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./containers/warehouse-list'),
+        loadComponent: () => import('./containers/warehouse-list-page'),
       },
       {
         path: ':id',
-        loadComponent: () => import('./containers/warehouse-item'),
+        loadComponent: () => import('./containers/warehouse-item-page'),
         children: [
           {
             path: 'cells/:id',
-            loadComponent: () => import('./containers/cell-item'),
+            pathMatch: 'full',
+            loadComponent: () => import('./containers/cell-page'),
+          },
+          {
+            path: 'cells/:id/items/:id',
+            loadComponent: () => import('./containers/item-page'),
           },
         ],
       },

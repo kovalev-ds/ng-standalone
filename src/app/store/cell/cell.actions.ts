@@ -25,3 +25,10 @@ export const loadOneSuccess = createAction(
   ActionTypes.LoadOneSuccess,
   props<{ data: CellInterface }>()
 );
+
+export const removeOneBegin = createAction(
+  ActionTypes.RemoveOneBegin,
+  props<{ id: number }>()
+);
+
+export const removeOneSuccess = createAction(ActionTypes.RemoveOneSuccess);

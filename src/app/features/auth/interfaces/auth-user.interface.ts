@@ -4,5 +4,5 @@ export interface AuthUserInterface {
   username: string;
   email: string;
   avatar: string;
-  roles: RoleEnum[];
+  roles: (keyof typeof RoleEnum)[];
 }

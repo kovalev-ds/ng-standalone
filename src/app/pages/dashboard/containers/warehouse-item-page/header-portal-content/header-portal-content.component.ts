@@ -1,13 +1,18 @@
-import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+
+import { map, takeWhile } from 'rxjs';
+
 import { AppIconComponent } from '@components/icon';
 import { AppIconButtonComponent } from '@components/icon-button';
+
 import { CellService, CreateDialogComponent } from '@features/cell';
 import { WarehouseService } from '@features/warehouse';
-import { RemoveDialogComponent } from '@features/warehouse/components/remove-dialog/remove-dialog.component';
-import { map, takeWhile } from 'rxjs';
+import { AccessControlDirective } from '@features/auth';
+
+import { RemoveDialogComponent } from '../../../components/remove-dialog';
 
 @Component({
   templateUrl: './header-portal-content.component.html',
@@ -17,6 +22,7 @@ import { map, takeWhile } from 'rxjs';
     AppIconButtonComponent,
     NgIf,
     AsyncPipe,
+    AccessControlDirective,
   ],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,

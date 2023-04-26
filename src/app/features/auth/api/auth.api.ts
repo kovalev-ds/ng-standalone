@@ -7,26 +7,27 @@ import {
   SignInInterface,
   SignUpInterface,
 } from '../interfaces';
+import { environment } from 'src/environments/environment';
 
-const API_URL = 'http://localhost:3001/auth/';
+const API_URL = environment.api_url + 'auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApi {
   private readonly http = inject(HttpClient);
 
   public me(): Observable<AuthResponseInterface> {
-    return this.http.get<AuthResponseInterface>(API_URL + 'me');
+    return this.http.get<AuthResponseInterface>(API_URL + '/me');
   }
 
   public signin(data: SignInInterface): Observable<AuthResponseInterface> {
-    return this.http.post<AuthResponseInterface>(API_URL + 'signin', data);
+    return this.http.post<AuthResponseInterface>(API_URL + '/signin', data);
   }
 
   public signup(data: SignUpInterface): Observable<AuthResponseInterface> {
-    return this.http.post<AuthResponseInterface>(API_URL + 'signup', data);
+    return this.http.post<AuthResponseInterface>(API_URL + '/signup', data);
   }
 
   public signout(): Observable<void> {
-    return this.http.get<void>(API_URL + 'signout');
+    return this.http.get<void>(API_URL + '/signout');
   }
 }

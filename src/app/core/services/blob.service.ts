@@ -16,4 +16,10 @@ export class BlobService {
         });
     });
   }
+
+  public async toFile(base46: string, name: string) {
+    return fetch(base46)
+      .then((res) => res.blob())
+      .then((blob) => new File([blob], name, { type: blob.type }));
+  }
 }

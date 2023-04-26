@@ -7,4 +7,7 @@ export enum ActionTypes {
 
   CreateOneBegin = '[CELL] Create Cell Begin',
   CreateOneSuccess = '[CELL] Create Cell Success',
+
+  RemoveOneBegin = '[CELL] Remove Cell One Begin',
+  RemoveOneSuccess = '[CELL] Remove Cell One Success',
 }

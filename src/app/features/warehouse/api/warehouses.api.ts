@@ -28,4 +28,11 @@ export class WarehouseApiService {
   public removeOne(id: number) {
     return this.http.delete(API_URL + `/${id}`);
   }
+
+  public updateOne(
+    id: number,
+    data: Partial<WarehouseInterface>
+  ): Observable<WarehouseInterface> {
+    return this.http.patch<WarehouseInterface>(API_URL + `/${id}`, data);
+  }
 }

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
-import { CanActivateFn, CanMatchFn, Router } from '@angular/router';
-import { tap, map, filter, takeWhile, skipWhile } from 'rxjs';
+import { CanMatchFn, Router } from '@angular/router';
+import { tap, map, skipWhile } from 'rxjs';
 
 import { AuthService } from '../services/auth.service';
 

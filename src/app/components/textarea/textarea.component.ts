@@ -22,9 +22,13 @@ export class AppTextareaComponent {
 
   @Input() public placeholder!: string;
 
-  public get value$() {
-    return this.accessor.value$;
-  }
+  public value$ = this.accessor.value$;
+
+  // constructor() {
+  //   this.accessor.value$.subscribe((value) => {
+  //     this.value = value;
+  //   });
+  // }
 
   public onChange(value: string) {
     this.accessor.change(value);

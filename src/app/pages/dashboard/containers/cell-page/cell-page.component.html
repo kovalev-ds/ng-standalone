@@ -1,0 +1,36 @@
+<ng-container *ngIf="cellService.selected$ | async as cell">
+  <div class="bg-white rounded shadow h-full">
+    <div class="px-4 h-16 flex justify-between items-center border-b shadow">
+      <div class="flex flex-col">
+        <span class="text-gray-400 text-xs">Cell name:</span>
+        <div class="text-gray-800 capitalize font-medium">
+          {{ cell.name }}
+        </div>
+      </div>
+      <div *access="'Employee'" class="flex items-center gap-x-1 px-2">
+        <app-icon-button (click)="add()">
+          <app-icon>add</app-icon>
+        </app-icon-button>
+      </div>
+    </div>
+    <ng-container *ngIf="loaderService.isReady$ | async">
+      <ng-container *ngIf="itemService.items$ | async as items">
+        <ng-container *ngIf="items.length; else emptyListTemplate">
+          <div class="p-4 grid grid-cols-2 gap-4 max-h-[80vh] overflow-scroll">
+            <item-card
+              *ngFor="let item of items; trackBy: trackById"
+              [item]="item"
+              [routerLink]="['items', item.id]"
+            />
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #emptyListTemplate>
+  <div class="text-gray-700 text-center py-12">
+    We don't have any items yet. Create new One!
+  </div>
+</ng-template>

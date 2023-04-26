@@ -10,11 +10,14 @@ import {
   loadListSuccess,
   loadOneBegin,
   loadOneSuccess,
+  removeOneBegin,
+  removeOneSuccess,
 } from './cell.actions';
 
 import { loadListBegin as loadItemListBegin } from '../item';
-import { EMPTY, catchError, map, mergeMap, withLatestFrom } from 'rxjs';
+import { EMPTY, catchError, map, mergeMap, tap, withLatestFrom } from 'rxjs';
 import { getWarehouse } from '@store/warehouse';
+import { AppRouteEnum } from '@core/enums';
 
 @Injectable()
 export class CellEffects {
@@ -47,6 +50,29 @@ export class CellEffects {
           catchError(() => EMPTY)
         );
       })
+    )
+  );
+
+  removeOneBegin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(removeOneBegin),
+      mergeMap(({ id }) => {
+        return this.api.removeOne(id).pipe(
+          map(() => removeOneSuccess()),
+          catchError(() => EMPTY)
+        );
+      })
+    )
+  );
+
+  afterRemoveOneSuccess$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(removeOneSuccess),
+      withLatestFrom(this.store.select(getWarehouse)),
+      tap(([_, warehouse]) => {
+        this.router.navigate([AppRouteEnum.Home, warehouse?.id]);
+      }),
+      map(() => loadListBegin())
     )
   );
 

@@ -7,4 +7,7 @@ export enum ActionTypes {
 
   CreateOneBegin = '[ITEM] Create Item Begin',
   CreateOneSuccess = '[ITEM] Create Item Success',
+
+  UpdateOneBegin = '[ITEM] Update Item Begin',
+  UpdateOneSuccess = '[ITEM] Update Item Success',
 }

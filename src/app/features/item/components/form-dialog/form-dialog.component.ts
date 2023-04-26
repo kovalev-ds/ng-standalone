@@ -5,17 +5,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable, Subject, concatMap, concatWith, takeUntil } from 'rxjs';
+
+import { BlobService } from '@core/services';
+import { ItemInterface } from '@features/item/interfaces';
+
 import { AppButtonComponent } from '@components/button';
 import { AppCardComponent } from '@components/card';
 import { AppFileInputComponent } from '@components/file-input';
 import { AppFormControlComponent } from '@components/form-control';
 import { AppInputComponent } from '@components/input';
 import { AppTextareaComponent } from '@components/textarea';
-import { BlobService } from '@core/services';
 
 @Component({
-  templateUrl: './create-dialog.component.html',
+  templateUrl: './form-dialog.component.html',
   standalone: true,
   imports: [
     AppInputComponent,
@@ -28,9 +32,13 @@ import { BlobService } from '@core/services';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateDialogComponent {
-  private readonly dialogRef = inject(MatDialogRef<CreateDialogComponent>);
+export class FormDialogComponent {
   private readonly blobService = inject(BlobService);
+  private readonly dialogRef = inject(MatDialogRef<FormDialogComponent>);
+  private readonly dialogData$ =
+    inject<Observable<ItemInterface>>(MAT_DIALOG_DATA);
+
+  private destroy$ = new Subject<boolean>();
 
   public readonly form = new FormGroup({
     name: new FormControl('', {
@@ -50,6 +58,22 @@ export class CreateDialogComponent {
       nonNullable: true,
     }),
   });
+
+  ngOnInit(): void {
+    this.dialogData$?.pipe(takeUntil(this.destroy$)).subscribe(async (item) => {
+      this.form.patchValue({
+        name: item.name,
+        description: item.description,
+        total: item.total,
+        image: await this.blobService.toFile(item.image, 'item.name'),
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.complete();
+  }
 
   public submit(): void {
     if (this.form.invalid) {

@@ -6,6 +6,7 @@ import {
   getSelectedCell,
   loadListBegin,
   loadOneBegin,
+  removeOneBegin,
 } from '@store/cell';
 import { CellInterface } from '../interfaces';
 
@@ -26,5 +27,9 @@ export class CellService {
 
   public create(data: Omit<CellInterface, 'id'>): void {
     this.store.dispatch(createOneBegin({ data }));
+  }
+
+  public remove(id: number): void {
+    this.store.dispatch(removeOneBegin({ id }));
   }
 }

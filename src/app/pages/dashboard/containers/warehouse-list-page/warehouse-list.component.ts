@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { HeaderPortalService } from 'src/app/layouts';
-import { HeaderPortalContentComponent } from './header-portal-content';
-import { WarehouseService } from '@features/warehouse';
 import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+
 import { LoaderService } from '@core/services';
+import { WarehouseService } from '@features/warehouse';
+
+import { HeaderPortalContentComponent } from './header-portal-content';
+import { HeaderPortalService } from 'src/app/layouts';
 
 @Component({
   standalone: true,

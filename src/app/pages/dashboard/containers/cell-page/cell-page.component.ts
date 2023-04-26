@@ -1,4 +1,4 @@
-import { AsyncPipe, JsonPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,36 +6,42 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+
+import { Subject, takeUntil, takeWhile } from 'rxjs';
+
+import { LoaderService } from '@core/services';
+import { AppIconComponent } from '@components/icon';
+import { AppIconButtonComponent } from '@components/icon-button';
+import { AccessControlDirective } from '@features/auth';
 import { CellService } from '@features/cell';
 import {
-  CreateDialogComponent,
+  FormDialogComponent,
   ItemCardComponent,
   ItemService,
 } from '@features/item';
-import { Subject, takeUntil, takeWhile } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { AppIconComponent } from '@components/icon';
-import { AppIconButtonComponent } from '@components/icon-button';
 
 @Component({
-  templateUrl: './cell-item.component.html',
+  templateUrl: './cell-page.component.html',
   standalone: true,
   imports: [
     NgIf,
     NgFor,
     AsyncPipe,
-    JsonPipe,
+    RouterLink,
     AppIconComponent,
     AppIconButtonComponent,
     ItemCardComponent,
+    AccessControlDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CellItemComponent implements OnInit, OnDestroy {
+export class CellPageComponent implements OnInit, OnDestroy {
   private readonly dialog = inject(MatDialog);
   private readonly activeRoute = inject(ActivatedRoute);
 
+  protected readonly loaderService = inject(LoaderService);
   protected readonly cellService = inject(CellService);
   protected readonly itemService = inject(ItemService);
 
@@ -55,8 +61,8 @@ export class CellItemComponent implements OnInit, OnDestroy {
   }
 
   public add(): void {
-    const matDialogRef = this.dialog.open(CreateDialogComponent, {
-      position: { top: '200px' },
+    const matDialogRef = this.dialog.open(FormDialogComponent, {
+      position: { top: '100px' },
     });
 
     matDialogRef
@@ -65,5 +71,9 @@ export class CellItemComponent implements OnInit, OnDestroy {
       .subscribe((x) => {
         this.itemService.createOne(x);
       });
+  }
+
+  public trackById(idx: number, item: { id: number }): number {
+    return item?.id ?? idx;
   }
 }

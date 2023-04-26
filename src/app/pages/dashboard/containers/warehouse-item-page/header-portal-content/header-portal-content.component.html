@@ -7,7 +7,7 @@
       <div class="px-4 font-semibold">{{ item.name }}</div>
     </ng-container>
   </div>
-  <div class="flex items-center gap-x-1 px-2">
+  <div *access="'Admin'" class="flex items-center gap-x-1 px-2">
     <app-icon-button (click)="add()">
       <app-icon>add</app-icon>
     </app-icon-button>

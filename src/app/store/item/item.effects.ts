@@ -1,12 +1,27 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { EMPTY, catchError, map, mergeMap, withLatestFrom } from 'rxjs';
+import {
+  EMPTY,
+  catchError,
+  exhaustMap,
+  map,
+  mergeMap,
+  withLatestFrom,
+} from 'rxjs';
 
 import { ItemsApiService } from '@features/item';
 import { getSelectedCell } from '@store/cell';
 
-import { createOneBegin, loadListBegin, loadListSuccess } from './item.actions';
+import {
+  createOneBegin,
+  loadListBegin,
+  loadListSuccess,
+  loadOneBegin,
+  loadOneSuccess,
+  updateOneBegin,
+} from './item.actions';
+import { getSelectedItem } from './item.selectors';
 
 @Injectable()
 export class ItemEffects {
@@ -18,13 +33,25 @@ export class ItemEffects {
     this.actions$.pipe(
       ofType(loadListBegin),
       withLatestFrom(this.store.select(getSelectedCell)),
-      mergeMap(([_, cell]) => {
+      exhaustMap(([_, cell]) => {
         return cell
           ? this.api.findByCellId(cell.id).pipe(
-              map((data) => loadListSuccess({ data })),
+              map(({ items }) => loadListSuccess({ data: items })),
               catchError(() => EMPTY)
             )
           : EMPTY;
+      })
+    )
+  );
+
+  loadOneBegin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadOneBegin),
+      exhaustMap(({ id }) => {
+        return this.api.findById(id).pipe(
+          map((data) => loadOneSuccess({ data })),
+          catchError(() => EMPTY)
+        );
       })
     )
   );
@@ -37,6 +64,21 @@ export class ItemEffects {
         return cell
           ? this.api.createOne({ ...data, cellId: cell.id }).pipe(
               map(() => loadListBegin()),
+              catchError(() => EMPTY)
+            )
+          : EMPTY;
+      })
+    )
+  );
+
+  updateOneBegin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateOneBegin),
+      withLatestFrom(this.store.select(getSelectedItem)),
+      mergeMap(([{ data }, item]) => {
+        return item
+          ? this.api.updateOne(item.id, { ...item, ...data }).pipe(
+              map(() => loadOneBegin({ id: item.id })),
               catchError(() => EMPTY)
             )
           : EMPTY;

@@ -1,6 +1,6 @@
 import { Directive, forwardRef, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 
 @Directive({
   standalone: true,
@@ -18,13 +18,11 @@ export class ValueAccessorDirective<T>
   private onChange!: (value: T) => void;
   private onTouched!: (isTouched: boolean) => void;
 
-  private _value$ = new Subject<T>();
-  private _disabled$ = new Subject<boolean>();
+  private _value$ = new ReplaySubject<T>();
+  private _disabled$ = new ReplaySubject<boolean>();
 
   public readonly value$ = this._value$.asObservable();
   public readonly disabled$ = this._disabled$.asObservable();
-
-  constructor() {}
 
   ngOnDestroy(): void {
     this._value$.complete();
@@ -33,6 +31,7 @@ export class ValueAccessorDirective<T>
 
   public change(v: T) {
     this.onChange(v);
+    this._value$.next(v);
   }
 
   public touched(v: boolean) {

@@ -7,3 +7,8 @@ export const getItems = createSelector(
   itemFeatureSelector,
   (state) => state.items
 );
+
+export const getSelectedItem = createSelector(
+  itemFeatureSelector,
+  (state) => state.selected
+);

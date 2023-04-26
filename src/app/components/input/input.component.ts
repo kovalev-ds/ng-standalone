@@ -23,9 +23,7 @@ export class AppInputComponent {
   @Input() public type!: string;
   @Input() public placeholder!: string;
 
-  public get value$() {
-    return this.accessor.value$;
-  }
+  public value$ = this.accessor.value$;
 
   public onChange(value: string) {
     this.accessor.change(value);

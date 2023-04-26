@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
 import { CellInterface } from '../interfaces/cell.interface';
 
@@ -26,5 +27,12 @@ export class CellsApiService {
 
   public removeOne(id: number) {
     return this.http.delete(API_URL + `/${id}`);
+  }
+
+  public updateOne(
+    id: number,
+    data: Partial<CellInterface>
+  ): Observable<CellInterface> {
+    return this.http.patch<CellInterface>(API_URL + `/${id}`, data);
   }
 }

@@ -6,8 +6,8 @@
   />
 
   <img
-    *ngIf="image"
-    [src]="image | appFileAsImage"
+    *ngIf="image | async as thumbnail"
+    [src]="thumbnail | appFileAsImage"
     alt="avatar"
     class="h-8 w-8 rounded-full object-cover absolute right-6"
   />
