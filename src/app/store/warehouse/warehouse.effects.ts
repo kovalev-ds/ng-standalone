@@ -1,4 +1,6 @@
 import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   loadOneSuccess,
@@ -11,23 +13,19 @@ import {
   removeOneSuccess,
 } from './warehouse.actions';
 
-import { loadListBegin as loadCellListBegin } from '../cell';
-
 import {
   EMPTY,
   catchError,
-  filter,
   map,
   mergeMap,
   switchMap,
   tap,
   withLatestFrom,
 } from 'rxjs';
+import { AppRouteEnum } from '@core/enums';
 import { WarehouseApiService } from '@features/warehouse';
-import { Store } from '@ngrx/store';
+import { loadListBegin as loadCellListBegin } from '../cell';
 import { getWarehouse } from './warehouse.selectors';
-import { Router } from '@angular/router';
-import { AppRouteEnum } from '@core/enums/app-route.enum';
 
 @Injectable()
 export class WarehouseEffects {

@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
+
+import { CellInterface } from '@features/cell';
 import { ActionTypes } from './action-types.enum';
-import { CellInterface } from '@features/cell/interfaces/cell.interface';
 
 export const loadListBegin = createAction(ActionTypes.LoadListBegin);
 

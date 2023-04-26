@@ -1,5 +1,6 @@
-import { WarehouseInterface } from '@features/warehouse/interfaces';
 import { createFeature, createReducer, on } from '@ngrx/store';
+
+import { WarehouseInterface } from '@features/warehouse/interfaces';
 import { loadOneSuccess, loadListSuccess } from './warehouse.actions';
 
 export const WAREHOUSE_FEATURE_KEY = 'WAREHOUSE';

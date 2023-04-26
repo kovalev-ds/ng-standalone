@@ -1,5 +1,5 @@
-import { provideEffects } from '@ngrx/effects';
 import { provideStore, provideState } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { AuthFeature, AuthEffects } from './auth';
