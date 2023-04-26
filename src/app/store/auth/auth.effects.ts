@@ -2,19 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Action } from '@ngrx/store';
 import { Actions, OnInitEffects, createEffect, ofType } from '@ngrx/effects';
-import {
-  EMPTY,
-  catchError,
-  exhaustMap,
-  map,
-  of,
-  repeat,
-  switchMap,
-  tap,
-} from 'rxjs';
 
-import { AuthApi } from '@features/auth';
+import { EMPTY, catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs';
+
 import { AppRouteEnum } from '@core/enums';
+import { AuthApi } from '@features/auth';
 import {
   authenticate,
   checkAuthBegin,

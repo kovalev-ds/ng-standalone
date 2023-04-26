@@ -1,11 +1,12 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ActionTypes } from './action-types.enum';
 import {
   AuthResponseInterface,
   SignInInterface,
   SignUpInterface,
 } from '@features/auth';
+
+import { ActionTypes } from './action-types.enum';
 
 export const checkAuthBegin = createAction(ActionTypes.CheckAuthBegin);
 export const checkAuthFailure = createAction(ActionTypes.CheckAuthFailure);
